@@ -299,43 +299,53 @@
         const PROJECTS = [
             {
                 id: 1,
-                title: "VexLogic AI",
-                category: "Artificial Intelligence",
-                year: "2025",
-                image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop",
-                tags: ["Next.js", "OpenAI", "Stripe"]
+                title: "MonoCRM",
+                category: "Financial Infrastructure",
+                year: "2024",
+                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
+                tags: ["React", "Node.js", "API"],
+                description: "The open infrastructure powering modern sales teams. Link customer accounts, enrich data, and verify identity—all through a single, powerful API.",
+                link: "https://firsttest-xi.vercel.app"
             },
             {
                 id: 2,
-                title: "Comra Visuals",
-                category: "Spatial Architecture",
+                title: "PDF Compressor",
+                category: "Utility Tool",
                 year: "2024",
-                image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop",
-                tags: ["Three.js", "R3F", "WebGL"]
+                image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=2070&auto=format&fit=crop",
+                tags: ["Next.js", "TypeScript", "Crypto"],
+                description: "A premium, secure document optimization engine. Re-engineered to make PDFs lighter and faster with enterprise-grade encryption and privacy.",
+                link: "https://pdfcompressor-two.vercel.app"
             },
             {
                 id: 3,
-                title: "Fintechracy",
-                category: "Fintech Solution",
+                title: "StoryFlow Agency",
+                category: "Creative Agency",
                 year: "2024",
-                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
-                tags: ["React", "PWA", "Node.js"]
+                image: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2000&auto=format&fit=crop",
+                tags: ["Next.js", "Framer Motion", "Tailwind"],
+                description: "A comprehensive digital agency platform designed to elevate brand narratives. Features immersive storytelling elements and a modern, fluid user interface.",
+                link: "https://storyflowagency.vercel.app"
             },
             {
                 id: 4,
-                title: "Techivation",
-                category: "Audio Ecosystem",
-                year: "2025",
-                image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop",
-                tags: ["SaaS", "Audio", "C++"]
+                title: "VO Photography",
+                category: "Photography Portfolio",
+                year: "2024",
+                image: "https://images.unsplash.com/photo-1554048612-387768052bf7?q=80&w=2000&auto=format&fit=crop",
+                tags: ["Next.js", "Tailwind", "Framer Motion"],
+                description: "A stunning photography portfolio designed to showcase visual works with immersive galleries and smooth transitions.",
+                link: "https://vophotography.vercel.app"
             },
             {
                 id: 5,
-                title: "NeoBank",
-                category: "Digital Banking",
-                year: "2023",
-                image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1470&auto=format&fit=crop",
-                tags: ["Vue.js", "Firebase", "D3.js"]
+                title: "Whiskey Fix Band",
+                category: "Music & Entertainment",
+                year: "2024",
+                image: "https://images.unsplash.com/photo-1501612766622-27c8435a13f2?q=80&w=2000&auto=format&fit=crop",
+                tags: ["Next.js", "Tailwind", "Framer Motion"],
+                description: "The official digital presence for Whiskey Fix Band. A responsive platform connecting fans with music, tour schedules, and exclusive content.",
+                link: "https://whiskeyfixband.vercel.app"
             },
             {
                 id: 6,
@@ -343,7 +353,9 @@
                 category: "Healthcare SaaS",
                 year: "2023",
                 image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop",
-                tags: ["React Native", "GraphQL", "AWS"]
+                tags: ["React Native", "GraphQL", "AWS"],
+                description: "An advanced healthcare saas platform engineered for scalability. Focused on high-performance rendering and seamless user interaction.",
+                link: "#"
             }
         ];
 
@@ -545,11 +557,10 @@
                                 ))}
                             </div>
                             <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8">
-                                An advanced {project.category.toLowerCase()} platform engineered for scalability.
-                                Focused on high-performance rendering and seamless user interaction.
+                                {project.description}
                             </p>
-                            <a href="#" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#111] dark:text-white border-b border-black dark:border-white pb-1 hover:text-blue-600 dark:hover:text-blue-500 hover:border-blue-600 dark:hover:border-blue-500 transition-colors">
-                                View Case Study <ArrowUpRight size={16} />
+                            <a href={project.link || "#"} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#111] dark:text-white border-b border-black dark:border-white pb-1 hover:text-blue-600 dark:hover:text-blue-500 hover:border-blue-600 dark:hover:border-blue-500 transition-colors">
+                                View Live Site <ArrowUpRight size={16} />
                             </a>
                         </Reveal>
                     </div>
