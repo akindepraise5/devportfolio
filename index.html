@@ -182,6 +182,16 @@
             </IconBase>
         );
 
+        const Medium = (props) => (
+            <IconBase {...props} fill="currentColor" stroke="none">
+                <path d="M13.54 12a6.8 6.8 0 0 1 .67-2.78c.26-.64.6-1.16 1-1.56a5.58 5.58 0 0 1 1.63-1.12c.67-.29 1.45-.44 2.34-.44.7 0 1.34.1 1.92.3.58.2 1.08.5 1.5.9l-2.6 6.5-4.14-9.8h-2.2l-3.9 8.86V6.1c0-.42-.1-.63-.3-.63h-.7v-1.9h5.53v1.9h-.7c-.33 0-.5.21-.5.63v5.8l3.6-8.9h2.2l-4.25 9.9v2.8c0 .54.1.8.3.8h.5v1.9H9.4v-1.9h.5c.33 0 .5-.26.5-.8V7.16l-3.9 9.35H4.26L0 6.64v7.32c-.03.67.2 1 .7 1h.5v1.9H.2v-1.9h.5c.5 0 .73-.33.7-1V6.1c0-.66-.14-.86-.67-.86H.2V3.34h4.86v1.4l4.28 10.14 4.2-12.88z" />
+                <circle cx="4.5" cy="4.5" r="4.5" transform="translate(1 7)" />
+                <path d="M16 7h6v10h-6z" fill="none" />
+                <path d="M2.85 17.56c-.3-.8-.3-1.7-.02-2.52.3-.8.85-1.5 1.62-2 .76-.52 1.66-.75 2.57-.65.9.1 1.76.5 2.43 1.15l-1.4 1.43a2.03 2.03 0 0 0-2.83 0 2.03 2.03 0 0 0 .03 2.87c.38.37.9.56 1.42.53.53-.04 1.03-.28 1.38-.68l1.42 1.42c-.7.83-1.68 1.35-2.74 1.45-1.07.1-2.14-.15-2.98-.7-1.1-.73-1.65-2.06-1.34-3.34z" transform="scale(0.05)" />
+                <path d="M12.9 8.86l4.22 9.9h2.18l4.22-9.9v6.3c0 .6-.12.75-.56.75h-.58v1.92h5.26v-1.92h-.58c-.46 0-.56-.14-.56-.75V7.16h-.7c-.36 0-.42.13-.42.57v.72l-4.5-9.9h-2.2l-3.86 9.4V6.1c0-.44.06-.57.42-.57h.79V3.6h-5.7v1.92h.78c.36 0 .42.13.42.57v6.6c0 .5-.12.7-.42.7H12.9z" />
+            </IconBase>
+        );
+
         const Menu = (props) => <IconBase {...props}><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></IconBase>;
         const X = (props) => <IconBase {...props}><path d="M18 6 6 18" /><path d="m6 6 18 12" /></IconBase>;
         const ArrowRight = (props) => <IconBase {...props}><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></IconBase>;
@@ -286,13 +296,12 @@
 
         // --- Data ---
         const PORTFOLIO_DATA = {
-            email: "contact@praiseakinde.com",
+            email: "contact@praiseakinde",
             socials: [
-                { name: "LinkedIn", url: "https://linkedin.com", icon: <Linkedin size={20} /> },
-                { name: "GitHub", url: "https://github.com", icon: <Github size={20} /> },
-                { name: "Twitter", url: "https://x.com", icon: <TwitterX size={20} /> },
-                { name: "Instagram", url: "https://instagram.com", icon: <Instagram size={20} /> },
-                { name: "WhatsApp", url: "https://wa.me/1234567890", icon: <WhatsApp size={20} /> }
+                { name: "LinkedIn", url: "https://www.linkedin.com/in/akindepraise/", icon: <Linkedin size={20} /> },
+                { name: "GitHub", url: "https://github.com/akindepraise5", icon: <Github size={20} /> },
+                { name: "Twitter", url: "https://x.com/akindepraise_", icon: <TwitterX size={20} /> },
+                { name: "Medium", url: "https://medium.com/@akindepraise5", icon: <Medium size={20} /> }
             ]
         };
 
@@ -302,7 +311,7 @@
                 title: "MonoCRM",
                 category: "Financial Infrastructure",
                 year: "2024",
-                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
+                image: "./assets/monocrm_preview.png",
                 tags: ["React", "Node.js", "API"],
                 description: "The open infrastructure powering modern sales teams. Link customer accounts, enrich data, and verify identity—all through a single, powerful API.",
                 link: "https://firsttest-xi.vercel.app"
@@ -312,7 +321,7 @@
                 title: "PDF Compressor",
                 category: "Utility Tool",
                 year: "2024",
-                image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=2070&auto=format&fit=crop",
+                image: "./assets/pdf_compressor_preview.png",
                 tags: ["Next.js", "TypeScript", "Crypto"],
                 description: "A premium, secure document optimization engine. Re-engineered to make PDFs lighter and faster with enterprise-grade encryption and privacy.",
                 link: "https://pdfcompressor-two.vercel.app"
@@ -322,7 +331,7 @@
                 title: "StoryFlow Agency",
                 category: "Creative Agency",
                 year: "2024",
-                image: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2000&auto=format&fit=crop",
+                image: "./assets/storyflow_preview.png",
                 tags: ["Next.js", "Framer Motion", "Tailwind"],
                 description: "A comprehensive digital agency platform designed to elevate brand narratives. Features immersive storytelling elements and a modern, fluid user interface.",
                 link: "https://storyflowagency.vercel.app"
@@ -332,7 +341,7 @@
                 title: "VO Photography",
                 category: "Photography Portfolio",
                 year: "2024",
-                image: "https://images.unsplash.com/photo-1554048612-387768052bf7?q=80&w=2000&auto=format&fit=crop",
+                image: "./assets/vo_photography_preview.png",
                 tags: ["Next.js", "Tailwind", "Framer Motion"],
                 description: "A stunning photography portfolio designed to showcase visual works with immersive galleries and smooth transitions.",
                 link: "https://vophotography.vercel.app"
@@ -342,7 +351,7 @@
                 title: "Whiskey Fix Band",
                 category: "Music & Entertainment",
                 year: "2024",
-                image: "https://images.unsplash.com/photo-1501612766622-27c8435a13f2?q=80&w=2000&auto=format&fit=crop",
+                image: "./assets/whiskey_fix_preview.png",
                 tags: ["Next.js", "Tailwind", "Framer Motion"],
                 description: "The official digital presence for Whiskey Fix Band. A responsive platform connecting fans with music, tour schedules, and exclusive content.",
                 link: "https://whiskeyfixband.vercel.app"
@@ -608,7 +617,7 @@
                             </div>
                             <div className="flex flex-col justify-end items-start md:items-end">
                                 <a
-                                    href={`mailto:${PORTFOLIO_DATA.email}`}
+                                    href="mailto:Akindepraise5@gmail.com"
                                     className="text-2xl md:text-4xl font-bold border-b border-gray-700 hover:border-blue-500 hover:text-blue-500 transition-colors pb-2 mb-12"
                                 >
                                     {PORTFOLIO_DATA.email}
