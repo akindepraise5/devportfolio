@@ -407,15 +407,14 @@
                         </a>
 
                         <div className="hidden md:flex items-center gap-12">
-                            {['About', 'Works', 'Experience', 'Contact'].map((item, i) => (
-                                <a
-                                    key={item}
-                                    href={`#${item.toLowerCase()}`}
-                                    className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors"
-                                >
-                                    {item}
-                                </a>
-                            ))}
+                            {/* Standard Links */}
+                            <a href="#works" className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors">Work</a>
+                            <a href="#stack" className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors">Stack</a>
+                            <a href="#about" className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors">About</a>
+
+                            {/* Hire Me - Active Text */}
+                            <a href="mailto:Akindepraise5@gmail.com" className="text-xs font-black uppercase tracking-[0.2em] text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-500 transition-colors">Hire Me</a>
+
                             <div className="w-px h-6 bg-gray-300 dark:bg-white/20"></div>
                             <button
                                 onClick={toggleTheme}
@@ -467,17 +466,27 @@
                         </Reveal>
 
                         <Reveal delay={400} className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                            <a href="#works" className="group relative px-10 py-5 bg-black dark:bg-white text-white dark:text-black font-bold text-sm uppercase tracking-wider rounded-full overflow-hidden transition-all hover:scale-105">
+                            {/* Primary Button: HIRE ME */}
+                            <a href="mailto:Akindepraise5@gmail.com" className="group relative px-10 py-5 bg-black dark:bg-white text-white dark:text-black font-bold text-sm uppercase tracking-wider rounded-full overflow-hidden transition-all hover:scale-105 border border-transparent">
                                 <div className="absolute inset-0 bg-blue-600 dark:bg-blue-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
                                 <span className="relative flex items-center gap-3 z-10 group-hover:text-white dark:group-hover:text-black">
-                                    VIEW BUILDS <ArrowRight className="w-4 h-4" />
+                                    HIRE ME <ArrowRight className="w-4 h-4" />
+                                </span>
+                            </a>
+
+                            {/* Secondary Button: VIEW BUILDS */}
+                            <a href="#works" className="group relative px-10 py-5 bg-transparent text-black dark:text-white font-bold text-sm uppercase tracking-wider rounded-full overflow-hidden transition-all hover:scale-105 border border-black/10 dark:border-white/20 hover:border-black dark:hover:border-white">
+                                <span className="relative flex items-center gap-3 z-10">
+                                    VIEW BUILDS
                                 </span>
                             </a>
                         </Reveal>
                     </div>
 
-                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 dark:text-gray-600">Scroll</span>
+                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+                        <div className="animate-bounce">
+                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 dark:text-gray-600 pl-[0.3em]">Scroll</span>
+                        </div>
                     </div>
                 </section>
             );
@@ -577,6 +586,89 @@
             );
         };
 
+        const Stack = () => {
+            const stackItems = [
+                {
+                    category: "CORE",
+                    items: ["React", "Next.js 14", "TypeScript", "Node.js"]
+                },
+                {
+                    category: "STYLING & ANIMATION",
+                    items: ["Tailwind CSS", "Framer Motion", "GSAP", "Three.js"]
+                },
+                {
+                    category: "TOOLS & BACKEND",
+                    items: ["Supabase", "PostgreSQL", "Figma", "Vercel"]
+                }
+            ];
+
+            return (
+                <section id="stack" className="py-32 px-6 bg-white dark:bg-[#050505] transition-colors duration-500 border-t border-gray-100 dark:border-white/5">
+                    <div className="max-w-[1400px] mx-auto">
+                        <Reveal className="mb-24 flex flex-col md:flex-row justify-between items-end gap-8">
+                            <h2 className="text-6xl md:text-8xl font-black text-[#111] dark:text-white tracking-tighter leading-none">
+                                TECH <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-800 dark:from-blue-500 dark:to-blue-800 p-2 inline-block -ml-2">STACK</span>
+                            </h2>
+                            <div className="md:mb-4">
+                                <p className="text-gray-600 dark:text-gray-400 text-sm font-bold uppercase tracking-widest text-right">
+                                    The toolkit
+                                </p>
+                            </div>
+                        </Reveal>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 border-t border-gray-200 dark:border-gray-800 pt-16">
+                            {stackItems.map((group, i) => (
+                                <Reveal key={i} delay={i * 100}>
+                                    <div className="flex flex-col gap-8">
+                                        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-500 flex items-center gap-2">
+                                            <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-500"></span>
+                                            {group.category}
+                                        </h3>
+                                        <ul className="flex flex-col gap-4">
+                                            {group.items.map((item, j) => (
+                                                <li key={j} className="text-3xl md:text-4xl font-bold text-gray-300 dark:text-gray-700 hover:text-black dark:hover:text-white transition-colors duration-300 cursor-default">
+                                                    {item}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </Reveal>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const About = () => {
+            return (
+                <section id="about" className="py-32 px-6 bg-[#FAFAFA] dark:bg-[#0a0a0a] transition-colors duration-500 border-t border-gray-200 dark:border-gray-800">
+                    <div className="max-w-4xl mx-auto text-center">
+                        <Reveal>
+                            {/* Small Tag Label */}
+                            <div className="inline-flex items-center gap-2 mb-10 px-4 py-2 rounded-full border border-blue-600/10 dark:border-blue-500/10 bg-blue-50 dark:bg-blue-900/5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-500"></span>
+                                <span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-500">
+                                    About Praise
+                                </span>
+                            </div>
+
+                            {/* Main Headline */}
+                            <h3 className="text-3xl md:text-5xl font-bold text-[#111] dark:text-white leading-tight mb-10">
+                                I build and ship web products with a strong focus on <span className="text-gray-400 dark:text-gray-600">usability</span> and <span className="text-gray-400 dark:text-gray-600">clarity</span>.
+                            </h3>
+
+                            {/* Secondary Text */}
+                            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto">
+                                With a background in product design, I approach frontend development through the lens of real users — making sure products feel simple, intuitive, and useful.
+                            </p>
+                        </Reveal>
+                    </div>
+                </section>
+            );
+        };
+
         const Works = () => {
             return (
                 <section id="works" className="py-32 px-6 bg-[#FAFAFA] dark:bg-[#0a0a0a] transition-colors duration-500">
@@ -670,6 +762,8 @@
                             <Hero />
                             <Marquee />
                             <Works />
+                            <Stack />
+                            <About />
                             <Footer />
                         </div>
                     )}
