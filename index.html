@@ -197,7 +197,7 @@
         );
 
         const Menu = (props) => <IconBase {...props}><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></IconBase>;
-        const X = (props) => <IconBase {...props}><path d="M18 6 6 18" /><path d="m6 6 18 12" /></IconBase>;
+        const X = (props) => <IconBase {...props}><path d="M18 6 6 18" /><path d="M6 6 18 18" /></IconBase>;
         const ArrowRight = (props) => <IconBase {...props}><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></IconBase>;
         const ArrowUpRight = (props) => <IconBase {...props}><path d="M7 7h10v10" /><path d="M7 17 17 7" /></IconBase>;
         const ChevronDown = (props) => <IconBase {...props}><path d="m6 9 6 6 6-6" /></IconBase>;
@@ -408,27 +408,7 @@
                     Hire Me
                 </a>
 
-                <div className="w-12 h-px bg-gray-200 dark:bg-gray-800 my-4"></div>
 
-                <div className="flex items-center gap-6">
-                    <button
-                        onClick={() => {
-                            toggleTheme();
-                            // setIsOpen(false); // keep open or close? User wanted toggle inside ? No, beside menu. inside here is fine too.
-                        }}
-                        className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400"
-                    >
-                        {isDark ? (
-                            <>
-                                <Sun size={24} /> Light Mode
-                            </>
-                        ) : (
-                            <>
-                                <Moon size={24} /> Dark Mode
-                            </>
-                        )}
-                    </button>
-                </div>
             </div>
         );
 
@@ -442,7 +422,7 @@
             }, []);
 
             return (
-                <nav className={`fixed top-0 w-full z-40 transition-all duration-500 border-b ${scrolled
+                <nav className={`fixed top-0 w-full z-[60] transition-all duration-500 border-b ${scrolled
                     ? 'py-4 bg-white/70 dark:bg-black/70 backdrop-blur-xl border-gray-200 dark:border-white/10'
                     : 'py-8 bg-transparent border-transparent'
                     }`}>
@@ -471,7 +451,7 @@
                             </button>
                         </div>
 
-                        <div className="flex md:hidden items-center gap-6 relative z-[60]">
+                        <div className="flex md:hidden items-center gap-4 relative z-[60]">
                             <button
                                 onClick={toggleTheme}
                                 className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-500 transition-colors"
@@ -479,10 +459,10 @@
                                 {isDark ? <Sun size={20} /> : <Moon size={20} />}
                             </button>
                             <button
-                                className="text-gray-900 dark:text-white"
+                                className="w-10 h-10 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-lg text-[#111] dark:text-white transition-colors"
                                 onClick={() => setIsOpen(!isOpen)}
                             >
-                                {isOpen ? <X /> : <Menu />}
+                                {isOpen ? <X size={20} /> : <Menu size={20} />}
                             </button>
                         </div>
                     </div>
@@ -603,11 +583,14 @@
                     className={`flex flex-col md:flex-row gap-8 md:gap-16 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''} mb-32 group perspective`}
                 >
                     <div className="w-full md:w-3/5">
-                        <div
+                        <a
+                            href={project.link || "#"}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             ref={cardRef}
                             onMouseMove={handleMouseMove}
                             onMouseLeave={handleMouseLeave}
-                            className="relative rounded-lg overflow-hidden transition-all duration-300 ease-out shadow-2xl shadow-black/10 dark:shadow-black/50 border border-black/10 dark:border-white/5"
+                            className="block relative rounded-lg overflow-hidden transition-all duration-300 ease-out shadow-2xl shadow-black/10 dark:shadow-black/50 border border-black/10 dark:border-white/5 cursor-pointer"
                         >
                             <div className="aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-gray-900">
                                 <img
@@ -617,7 +600,7 @@
                                 />
                             </div>
                             <div className="absolute inset-0 bg-black/5 dark:bg-black/20 group-hover:bg-transparent transition-colors duration-300"></div>
-                        </div>
+                        </a>
                     </div>
 
                     <div className="w-full md:w-2/5 md:py-12">
