@@ -4,12 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="./assets/Favicon.png">
-    <title>Praise Akinde | Frontend Developer & UIUX Designer</title>
-    <meta property="og:title" content="Praise Akinde | Frontend Developer & UIUX Designer" />
-    <meta property="og:description"
-        content="I build web products users understand and enjoy using. Focused on usability, speed, and real-world users." />
-    <meta property="og:type" content="website" />
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>Praise Akinde | Frontend Developer & UI/UX Designer</title>
+    <meta name="description" content="I build web products users understand, enjoy, and find highly usable. Focused on usability, performance, and human-centered design.">
+    <meta name="keywords" content="Praise Akinde, Praise, Akinde, Frontend Developer, UI/UX Designer, Design Engineer, React Developer, Web Developer Portfolio, Product Design, Next.js, TypeScript">
+    <meta name="author" content="Praise Akinde">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="./assets/Favicon.png?v=2" type="image/png">
+    <link rel="icon" href="./assets/Favicon.png?v=2" type="image/png">
+    
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://akindepraise5.github.io/devportfolio">
+    <meta property="og:title" content="Praise Akinde | Frontend Developer & UI/UX Designer">
+    <meta property="og:description" content="I build web products users understand, enjoy, and find highly usable. Focused on usability, performance, and human-centered design.">
+    <meta property="og:image" content="./assets/monocrm_preview.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://akindepraise5.github.io/devportfolio">
+    <meta name="twitter:title" content="Praise Akinde | Frontend Developer & UI/UX Designer">
+    <meta name="twitter:description" content="I build web products users understand, enjoy, and find highly usable. Focused on usability, performance, and human-centered design.">
+    <meta name="twitter:image" content="./assets/monocrm_preview.png">
+
+    <!-- JSON-LD Structured Data Schema for Google Search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Praise Akinde",
+      "jobTitle": "Frontend Developer & UI/UX Designer",
+      "url": "https://akindepraise5.github.io/devportfolio",
+      "email": "Akindepraise5@gmail.com",
+      "sameAs": [
+        "https://www.linkedin.com/in/akindepraise/",
+        "https://github.com/akindepraise5",
+        "https://x.com/akindepraise_"
+      ],
+      "description": "Praise Akinde is a Frontend Developer & UI/UX Designer building clean, fast, and highly usable web products with a focus on human-centered design."
+    }
+    </script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -313,63 +350,63 @@
         const PROJECTS = [
             {
                 id: 1,
+                title: "Ewave",
+                category: "Fintech & Web3",
+                image: "",
+                video: "./video/EWAVE P1.mp4",
+                tags: ["Stablecoin", "Fintech", "Web3"],
+                description: "A borderless finance experience that helps users move, save, and manage stablecoins as easily as everyday money.",
+                link: "https://useewave.com/"
+            },
+            {
+                id: 2,
                 title: "MonoCRM",
                 category: "Financial Infrastructure",
-                year: "2024",
                 image: "./assets/monocrm_preview.png",
+                video: "./video/Project 2 (Monocrm).mp4",
                 tags: ["React", "Node.js", "API"],
                 description: "The open infrastructure powering modern sales teams. Link customer accounts, enrich data, and verify identity—all through a single, powerful API.",
                 link: "https://firsttest-xi.vercel.app"
             },
             {
-                id: 2,
-                title: "PDF Compressor",
-                category: "Utility Tool",
-                year: "2024",
-                image: "./assets/pdf_compressor_preview.png",
-                tags: ["Next.js", "TypeScript", "Crypto"],
-                description: "A premium, secure document optimization engine. Re-engineered to make PDFs lighter and faster with enterprise-grade encryption and privacy.",
-                link: "https://pdfcompressor-two.vercel.app"
-            },
-            {
                 id: 3,
-                title: "StoryFlow Agency",
-                category: "Creative Agency",
-                year: "2024",
-                image: "./assets/storyflow_preview.png",
-                tags: ["Next.js", "Framer Motion", "Tailwind"],
-                description: "A comprehensive digital agency platform designed to elevate brand narratives. Features immersive storytelling elements and a modern, fluid user interface.",
-                link: "https://storyflowagency.vercel.app"
-            },
-            {
-                id: 4,
                 title: "VO Photography",
                 category: "Photography Portfolio",
-                year: "2024",
                 image: "./assets/vo_photography_preview.png",
+                video: "./video/VO Photography P5.mp4",
                 tags: ["Next.js", "Tailwind", "Framer Motion"],
                 description: "A stunning photography portfolio designed to showcase visual works with immersive galleries and smooth transitions.",
                 link: "https://vophotography.vercel.app"
             },
             {
+                id: 4,
+                title: "StoryFlow Agency",
+                category: "Creative Agency",
+                image: "./assets/storyflow_preview.png",
+                video: "./video/Storyflow P4.mp4",
+                tags: ["Next.js", "Framer Motion", "Tailwind"],
+                description: "A comprehensive digital agency platform designed to elevate brand narratives. Features immersive storytelling elements and a modern, fluid user interface.",
+                link: "https://storyflowagency.vercel.app"
+            },
+            {
                 id: 5,
                 title: "Whiskey Fix Band",
                 category: "Music & Entertainment",
-                year: "2024",
                 image: "./assets/whiskey_fix_preview.png",
+                video: "./video/Whiskey Fix Band P6.mp4",
                 tags: ["Next.js", "Tailwind", "Framer Motion"],
                 description: "The official digital presence for Whiskey Fix Band. A responsive platform connecting fans with music, tour schedules, and exclusive content.",
                 link: "https://whiskeyfixband.vercel.app"
             },
             {
                 id: 6,
-                title: "HealthSync",
-                category: "Healthcare SaaS",
-                year: "2023",
-                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop",
-                tags: ["React Native", "GraphQL", "AWS"],
-                description: "An advanced healthcare saas platform engineered for scalability. Focused on high-performance rendering and seamless user interaction.",
-                link: "#"
+                title: "PDF Compressor",
+                category: "Utility Tool",
+                image: "./assets/pdf_compressor_preview.png",
+                video: "./video/Pdf Compressor P3.mp4",
+                tags: ["Next.js", "TypeScript"],
+                description: "A premium, secure document optimization engine. Re-engineered to make PDFs lighter and faster with enterprise-grade encryption and privacy.",
+                link: "https://pdfcompressor-two.vercel.app"
             }
         ];
 
@@ -556,6 +593,8 @@
 
         const ProjectCard = ({ project, index }) => {
             const cardRef = useRef(null);
+            const videoRef = useRef(null);
+            const [isHovered, setIsHovered] = useState(false);
 
             const handleMouseMove = (e) => {
                 if (!cardRef.current) return;
@@ -573,14 +612,28 @@
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
             };
 
+            const handleMouseEnter = () => {
+                setIsHovered(true);
+                if (videoRef.current) {
+                    videoRef.current.play().catch(err => {
+                        console.log("Video playback was interrupted or blocked:", err);
+                    });
+                }
+            };
+
             const handleMouseLeave = () => {
+                setIsHovered(false);
                 if (cardRef.current) {
                     cardRef.current.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                }
+                if (videoRef.current) {
+                    videoRef.current.pause();
+                    videoRef.current.currentTime = 0;
                 }
             };
 
             return (
-                <div
+                <article
                     className={`flex flex-col md:flex-row gap-8 md:gap-16 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''} mb-32 group perspective`}
                 >
                     <div className="w-full md:w-3/5">
@@ -590,15 +643,28 @@
                             rel="noopener noreferrer"
                             ref={cardRef}
                             onMouseMove={handleMouseMove}
+                            onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}
                             className="block relative rounded-lg overflow-hidden transition-all duration-300 ease-out shadow-2xl shadow-black/10 dark:shadow-black/50 border border-black/10 dark:border-white/5 cursor-pointer"
                         >
-                            <div className="aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-gray-900">
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-full object-cover opacity-90 dark:opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
-                                />
+                            <div className="aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-gray-900 relative">
+                                {project.video ? (
+                                    <video
+                                        ref={videoRef}
+                                        src={project.video}
+                                        loop
+                                        muted
+                                        playsInline
+                                        preload="auto"
+                                        className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105"
+                                    />
+                                ) : (
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
+                                        className="w-full h-full object-cover opacity-90 dark:opacity-80 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110"
+                                    />
+                                )}
                             </div>
                             <div className="absolute inset-0 bg-black/5 dark:bg-black/20 group-hover:bg-transparent transition-colors duration-300"></div>
                         </a>
@@ -606,7 +672,7 @@
 
                     <div className="w-full md:w-2/5 md:py-12">
                         <Reveal>
-                            <span className="text-blue-600 dark:text-blue-400 font-mono text-sm mb-4 block">0{project.id} — {project.year}</span>
+                            <span className="text-blue-600 dark:text-blue-400 font-mono text-sm mb-4 block">0{project.id}</span>
                             <h3 className="text-4xl md:text-5xl font-bold text-[#111] dark:text-white mb-4 leading-tight">{project.title}</h3>
                             <div className="flex flex-wrap gap-2 mb-8">
                                 {project.tags.map(tag => (
@@ -623,7 +689,7 @@
                             </a>
                         </Reveal>
                     </div>
-                </div>
+                </article>
             );
         };
 
@@ -696,9 +762,9 @@
                             </div>
 
                             {/* Main Headline */}
-                            <h3 className="text-3xl md:text-5xl font-bold text-[#111] dark:text-white leading-tight mb-10">
+                            <h2 className="text-3xl md:text-5xl font-bold text-[#111] dark:text-white leading-tight mb-10">
                                 I build and ship web products with a strong focus on <span className="text-gray-500 dark:text-gray-600">usability</span> and <span className="text-gray-500 dark:text-gray-600">clarity</span>.
-                            </h3>
+                            </h2>
 
                             {/* Secondary Text */}
                             <p className="text-lg md:text-xl text-gray-700 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto">
@@ -802,11 +868,13 @@
                             <CustomCursor />
                             <Navbar isDark={isDark} toggleTheme={() => setIsDark(!isDark)} isOpen={isOpen} setIsOpen={setIsOpen} />
                             <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} isDark={isDark} toggleTheme={() => setIsDark(!isDark)} />
-                            <Hero />
-                            <Marquee />
-                            <Works />
-                            <Stack />
-                            <About />
+                            <main>
+                                <Hero />
+                                <Marquee />
+                                <Works />
+                                <Stack />
+                                <About />
+                            </main>
                             <Footer />
                         </div>
                     )}
