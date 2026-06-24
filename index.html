@@ -3,6 +3,59 @@
 
 <head>
     <meta charset="UTF-8">
+
+    <!-- Fail-loud guard: registered before anything else so the page can never
+         fail silently to a blank screen again. Surfaces script/runtime errors,
+         CDN load failures, and the "nothing rendered" case as a visible overlay. -->
+    <script>
+        (function () {
+            function showError(title, detail) {
+                if (document.getElementById('__boot_error__')) return;
+                var pre = document.createElement('pre');
+                pre.id = '__boot_error__';
+                pre.style.cssText = 'position:fixed;inset:0;z-index:99999;margin:0;padding:24px;'
+                    + 'background:#050505;color:#ff6b6b;font:14px/1.6 ui-monospace,Menlo,Consolas,monospace;'
+                    + 'white-space:pre-wrap;overflow:auto;';
+                pre.textContent = '⚠ ' + title + '\n\n' + (detail || '')
+                    + '\n\nOpen the browser console for the full stack trace.';
+                (document.body || document.documentElement).appendChild(pre);
+            }
+            window.addEventListener('error', function (e) {
+                if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+                    showError('A required resource failed to load (check your internet connection)',
+                        e.target.src || e.target.href || '');
+                } else {
+                    showError('The page failed to load',
+                        (e.message || e.error || '') + (e.filename ? '\n' + e.filename + ':' + e.lineno : ''));
+                }
+            }, true);
+            window.addEventListener('unhandledrejection', function (e) {
+                showError('The page failed to load',
+                    (e.reason && (e.reason.message || e.reason)) || 'Unhandled promise rejection');
+            });
+            // Babel reports transform/eval errors via console.error with full
+            // detail (window.onerror only sees a cross-origin "Script error.").
+            var origConsoleError = console.error.bind(console);
+            console.error = function () {
+                var msg = Array.prototype.map.call(arguments, function (a) {
+                    return (a && (a.stack || a.message)) || String(a);
+                }).join(' ');
+                if (/error|exception|cannot|undefined|failed|unexpected/i.test(msg)) {
+                    showError('A script error occurred', msg);
+                }
+                return origConsoleError.apply(null, arguments);
+            };
+            window.addEventListener('load', function () {
+                setTimeout(function () {
+                    var root = document.getElementById('root');
+                    if (root && root.childElementCount === 0) {
+                        showError('The app did not render',
+                            '#root is still empty after load. A script likely failed to load (CDN/network) or a runtime error occurred before render.');
+                    }
+                }, 4000);
+            });
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO Meta Tags -->
@@ -86,8 +139,17 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Babel for JSX (pinned so the transform output never drifts) -->
+    <script src="https://unpkg.com/@babel/standalone@8.0.2/babel.min.js"></script>
+    <script>
+        // Force the classic JSX runtime regardless of Babel's default. Classic
+        // compiles JSX to React.createElement (which uses the global React/ReactDOM
+        // loaded above) and never injects an unresolvable "react/jsx-runtime" import.
+        // Registering the preset explicitly is more reliable than a comment pragma.
+        Babel.registerPreset('react-classic', {
+            presets: [[Babel.availablePresets.react, { runtime: 'classic' }]]
+        });
+    </script>
 
     <style>
         /* Custom Utilities */
@@ -182,7 +244,7 @@
     class="bg-[#FAFAFA] dark:bg-[#050505] text-[#111] dark:text-white transition-colors duration-500 antialiased overflow-x-hidden">
     <div id="root"></div>
 
-    <script type="text/babel">
+    <script type="text/babel" data-presets="react-classic">
         const { useState, useEffect, useRef } = React;
 
         // --- Icons ---
@@ -925,8 +987,27 @@
             );
         };
 
+        // Catches any render-time error so a thrown component never collapses
+        // the whole page to a blank screen.
+        class ErrorBoundary extends React.Component {
+            constructor(props) { super(props); this.state = { error: null }; }
+            static getDerivedStateFromError(error) { return { error }; }
+            componentDidCatch(error, info) { console.error(error, info); }
+            render() {
+                if (this.state.error) {
+                    return (
+                        <div style={{ padding: '48px', maxWidth: '900px', margin: '0 auto', fontFamily: 'ui-monospace, Menlo, Consolas, monospace' }}>
+                            <h1 style={{ fontSize: '20px', marginBottom: '16px' }}>Something went wrong rendering this page.</h1>
+                            <pre style={{ whiteSpace: 'pre-wrap', color: '#b00020' }}>{String((this.state.error && this.state.error.stack) || this.state.error)}</pre>
+                        </div>
+                    );
+                }
+                return this.props.children;
+            }
+        }
+
         const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        root.render(<ErrorBoundary><App /></ErrorBoundary>);
     </script>
 </body>
 
