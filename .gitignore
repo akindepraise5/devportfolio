@@ -1,0 +1,3 @@
+# Full-resolution source photos, kept locally as the master copies.
+# The optimized versions in assets/ are what the site actually serves.
+_image-originals/
