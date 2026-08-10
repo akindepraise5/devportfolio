@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Fail-loud guard: registered before anything else so the page can never
+         fail silently to a blank screen again. Surfaces script/runtime errors,
+         CDN load failures, and the "nothing rendered" case as a visible overlay. -->
+    <script>
+        (function () {
+            function showError(title, detail) {
+                if (document.getElementById('__boot_error__')) return;
+                var pre = document.createElement('pre');
+                pre.id = '__boot_error__';
+                pre.style.cssText = 'position:fixed;inset:0;z-index:99999;margin:0;padding:24px;'
+                    + 'background:#050505;color:#ff6b6b;font:14px/1.6 ui-monospace,Menlo,Consolas,monospace;'
+                    + 'white-space:pre-wrap;overflow:auto;';
+                pre.textContent = '⚠ ' + title + '\n\n' + (detail || '')
+                    + '\n\nOpen the browser console for the full stack trace.';
+                (document.body || document.documentElement).appendChild(pre);
+            }
+            window.addEventListener('error', function (e) {
+                if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+                    showError('A required resource failed to load (check your internet connection)',
+                        e.target.src || e.target.href || '');
+                } else {
+                    showError('The page failed to load',
+                        (e.message || e.error || '') + (e.filename ? '\n' + e.filename + ':' + e.lineno : ''));
+                }
+            }, true);
+            window.addEventListener('unhandledrejection', function (e) {
+                showError('The page failed to load',
+                    (e.reason && (e.reason.message || e.reason)) || 'Unhandled promise rejection');
+            });
+            var origConsoleError = console.error.bind(console);
+            console.error = function () {
+                var msg = Array.prototype.map.call(arguments, function (a) {
+                    return (a && (a.stack || a.message)) || String(a);
+                }).join(' ');
+                if (/error|exception|cannot|undefined|failed|unexpected/i.test(msg)) {
+                    showError('A script error occurred', msg);
+                }
+                return origConsoleError.apply(null, arguments);
+            };
+            window.addEventListener('load', function () {
+                setTimeout(function () {
+                    var root = document.getElementById('root');
+                    if (root && root.childElementCount === 0) {
+                        showError('The app did not render',
+                            '#root is still empty after load. A script likely failed to load (CDN/network) or a runtime error occurred before render.');
+                    }
+                }, 4000);
+            });
+        })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Set the theme before first paint so the page never flashes the wrong
+         colour scheme. Mirrors the persistence logic in the React app below. -->
+    <script>
+        (function () {
+            try {
+                var stored = localStorage.getItem('theme');
+                var dark = stored ? stored === 'dark'
+                    : !window.matchMedia('(prefers-color-scheme: light)').matches;
+                document.documentElement.classList.toggle('dark', dark);
+            } catch (e) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+
+    <!-- Primary SEO Meta Tags -->
+    <title>About Praise | Praise Akinde — Designer, Builder, Teacher</title>
+    <meta name="description" content="Meet Praise Akinde. Designer, builder, teacher. Learn about the person behind the portfolio.">
+    <meta name="keywords" content="Praise Akinde, About, Frontend Developer, UI/UX Designer, Design Engineer, Teacher, Builder">
+    <meta name="author" content="Praise Akinde">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://akindepraise5.github.io/devportfolio/about.html">
+    <meta name="theme-color" content="#050505" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="./assets/Favicon.png?v=2" type="image/png">
+    <link rel="icon" href="./assets/Favicon.png?v=2" type="image/png">
+
+    <!-- Open Graph — absolute URLs; scrapers cannot resolve relative paths -->
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" content="Praise Akinde">
+    <meta property="og:url" content="https://akindepraise5.github.io/devportfolio/about.html">
+    <meta property="og:title" content="About Praise | Praise Akinde">
+    <meta property="og:description" content="Meet Praise Akinde. Designer, builder, teacher. Learn about the person behind the portfolio.">
+    <meta property="og:image" content="https://akindepraise5.github.io/devportfolio/assets/My%20images/about-portrait-formal.png">
+    <meta property="og:image:alt" content="Portrait of Praise Akinde">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://akindepraise5.github.io/devportfolio/about.html">
+    <meta name="twitter:title" content="About Praise | Praise Akinde">
+    <meta name="twitter:description" content="Meet Praise Akinde. Designer, builder, teacher. Learn about the person behind the portfolio.">
+    <meta name="twitter:image" content="https://akindepraise5.github.io/devportfolio/assets/My%20images/about-portrait-formal.png">
+
+    <!-- Fonts — linked rather than @import'ed so they start downloading
+         immediately instead of waiting for the stylesheet to parse. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            'from': { opacity: '0', transform: 'translateY(40px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    },
+                    colors: {
+                        'accent-dark': '#1a1a1a',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone@8.0.2/babel.min.js"></script>
+    <script>
+        Babel.registerPreset('react-classic', {
+            presets: [[Babel.availablePresets.react, { runtime: 'classic' }]]
+        });
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        body {
+            font-family: 'Inter', sans-serif;
+            cursor: none;
+        }
+
+        /* The custom cursor hides the native pointer, so keyboard users get no
+           hover affordance at all. A loud focus ring is non-negotiable here. */
+        :focus-visible {
+            outline: 2px solid #3b82f6;
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        /* Skip link — visible only once focused */
+        .skip-link {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translate(-50%, -120%);
+            z-index: 100;
+            padding: 12px 20px;
+            background: #3b82f6;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 0 0 8px 8px;
+            transition: transform 0.2s ease;
+        }
+        .skip-link:focus {
+            transform: translate(-50%, 0);
+        }
+
+        /* Prevents the page scrolling behind the open mobile menu */
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Noise Texture */
+        .bg-noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #3b82f6;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        /* Mobile: Restore default cursor */
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+            .cursor-dot,
+            .cursor-outline {
+                display: none;
+            }
+        }
+
+        /* === ABOUT PAGE SPECIFIC === */
+
+        /* Editorial image hover */
+        .about-img {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+        }
+        .about-img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Subtle blue line accent */
+        .blue-line {
+            display: block;
+            flex: none;
+            width: 32px;
+            height: 2px;
+            background: #3b82f6;
+            border-radius: 1px;
+        }
+
+        /* Section 04 — asymmetric image composition */
+        .editorial-grid-04 {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 16px;
+            align-items: end;
+        }
+        @media (max-width: 768px) {
+            .editorial-grid-04 {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+
+        /* Section 05 — mixed orientation composition */
+        .editorial-grid-05 {
+            display: grid;
+            grid-template-columns: 0.45fr 0.55fr;
+            gap: 16px;
+            align-items: start;
+        }
+        @media (max-width: 768px) {
+            .editorial-grid-05 {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .about-img {
+                transition: none;
+            }
+            .about-img:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#FAFAFA] dark:bg-[#050505] text-[#111] dark:text-white transition-colors duration-500 antialiased overflow-x-hidden">
+    <div id="root"></div>
+
+    <script type="text/babel" data-presets="react-classic">
+        const { useState, useEffect, useRef } = React;
+
+        // --- Icons ---
+        const IconBase = ({ children, size = 24, className = "", ...props }) => (
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={size}
+                height={size}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={className}
+                {...props}
+            >
+                {children}
+            </svg>
+        );
+
+        const Github = (props) => (
+            <IconBase {...props} fill="currentColor" stroke="none">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </IconBase>
+        );
+
+        const Linkedin = (props) => (
+            <IconBase {...props} fill="currentColor" stroke="none">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </IconBase>
+        );
+
+        const TwitterX = (props) => (
+            <IconBase {...props} fill="currentColor" stroke="none">
+                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+            </IconBase>
+        );
+
+        const Medium = (props) => (
+            <IconBase {...props} fill="currentColor" stroke="none">
+                <path d="M13.54 12a6.77 6.77 0 0 1-6.77 6.77A6.77 6.77 0 0 1 0 12a6.77 6.77 0 0 1 6.77-6.77A6.77 6.77 0 0 1 13.54 12Zm7.42 0c0 3.54-1.51 6.42-3.38 6.42s-3.39-2.88-3.39-6.42 1.52-6.42 3.39-6.42S20.96 8.46 20.96 12ZM24 12c0 3.17-.53 5.75-1.19 5.75S21.62 15.17 21.62 12s.53-5.75 1.19-5.75S24 8.83 24 12Z" />
+            </IconBase>
+        );
+
+        const Menu = (props) => <IconBase {...props}><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></IconBase>;
+        const X = (props) => <IconBase {...props}><path d="M18 6 6 18" /><path d="M6 6 18 18" /></IconBase>;
+        const ArrowRight = (props) => <IconBase {...props}><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></IconBase>;
+        const Sun = (props) => <IconBase {...props}><circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" /></IconBase>;
+        const Moon = (props) => <IconBase {...props}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></IconBase>;
+
+        // --- Custom Cursor ---
+        const CustomCursor = () => {
+            const dotRef = useRef(null);
+            const outlineRef = useRef(null);
+
+            useEffect(() => {
+                const onMouseMove = (e) => {
+                    const { clientX, clientY } = e;
+                    if (dotRef.current) {
+                        dotRef.current.style.left = `${clientX}px`;
+                        dotRef.current.style.top = `${clientY}px`;
+                    }
+                    if (outlineRef.current) {
+                        outlineRef.current.animate({
+                            left: `${clientX}px`,
+                            top: `${clientY}px`
+                        }, { duration: 500, fill: 'forwards' });
+                    }
+                };
+
+                window.addEventListener('mousemove', onMouseMove);
+                return () => window.removeEventListener('mousemove', onMouseMove);
+            }, []);
+
+            return (
+                <>
+                    <div ref={dotRef} className="cursor-dot hidden md:block mix-blend-difference"></div>
+                    <div ref={outlineRef} className="cursor-outline hidden md:block mix-blend-difference"></div>
+                </>
+            );
+        };
+
+        // --- Scroll Reveal Hook ---
+        const useScrollReveal = () => {
+            const [isVisible, setIsVisible] = useState(false);
+            const domRef = useRef();
+
+            useEffect(() => {
+                const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (prefersReduced) {
+                    setIsVisible(true);
+                    return;
+                }
+
+                const observer = new IntersectionObserver(
+                    entries => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                setIsVisible(true);
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    { threshold: 0.1 }
+                );
+                if (domRef.current) observer.observe(domRef.current);
+                return () => {
+                    if (domRef.current) observer.unobserve(domRef.current);
+                };
+            }, []);
+
+            return [domRef, isVisible];
+        };
+
+        const Reveal = ({ children, className = "", delay = 0 }) => {
+            const [ref, isVisible] = useScrollReveal();
+            return (
+                <div
+                    ref={ref}
+                    className={`transition-all duration-1000 ease-out transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+                        } ${className}`}
+                    style={{ transitionDelay: `${delay}ms` }}
+                >
+                    {children}
+                </div>
+            );
+        };
+
+        // Editorial section marker — echoes the numbered project cards on the
+        // work page so both pages read as one system.
+        const SectionMark = ({ number, label, align = "left" }) => (
+            <div className={`flex items-center gap-4 mb-6 ${align === "center" ? "justify-center" : ""}`}>
+                <span className="font-mono text-xs text-blue-600 dark:text-blue-500 tabular-nums">{number}</span>
+                <span className="blue-line"></span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 dark:text-gray-600">
+                    {label}
+                </span>
+            </div>
+        );
+
+        // --- Data ---
+        const PORTFOLIO_DATA = {
+            email: "Akindepraise5@gmail.com",
+            socials: [
+                { name: "LinkedIn", url: "https://www.linkedin.com/in/akindepraise/", icon: <Linkedin size={20} /> },
+                { name: "GitHub", url: "https://github.com/akindepraise5", icon: <Github size={20} /> },
+                { name: "Twitter", url: "https://x.com/akindepraise_", icon: <TwitterX size={20} /> },
+                { name: "Medium", url: "https://medium.com/@akindepraise5", icon: <Medium size={20} /> }
+            ]
+        };
+
+        // --- Navigation (About page version) ---
+        const MobileMenu = ({ isOpen, setIsOpen }) => (
+            <div
+                id="mobile-menu"
+                inert={isOpen ? undefined : ""}
+                aria-hidden={!isOpen}
+                className={`fixed inset-0 bg-white dark:bg-black z-[50] flex flex-col items-center justify-center gap-8 transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'} md:hidden`}
+            >
+                {[{ name: 'Work', href: './index.html#works' }, { name: 'Stack', href: './index.html#stack' }, { name: 'About', href: '#' }].map((item) => (
+                    <a
+                        key={item.name}
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        aria-current={item.name === 'About' ? 'page' : undefined}
+                        className={`text-4xl font-black uppercase tracking-tighter transition-colors ${item.name === 'About'
+                            ? 'text-blue-600 dark:text-blue-500'
+                            : 'text-[#111] dark:text-white hover:text-blue-600 dark:hover:text-blue-500'
+                            }`}
+                    >
+                        {item.name}
+                    </a>
+                ))}
+                <a
+                    href="mailto:Akindepraise5@gmail.com"
+                    onClick={() => setIsOpen(false)}
+                    className="text-4xl font-black uppercase tracking-tighter text-blue-600 dark:text-blue-500 hover:text-black dark:hover:text-white transition-colors"
+                >
+                    Hire Me
+                </a>
+            </div>
+        );
+
+        const Navbar = ({ isDark, toggleTheme, isOpen, setIsOpen }) => {
+            const [scrolled, setScrolled] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 20);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                <nav className={`fixed top-0 w-full z-[60] transition-all duration-500 border-b ${scrolled
+                    ? 'py-4 bg-white/70 dark:bg-black/70 backdrop-blur-xl border-gray-200 dark:border-white/10'
+                    : 'py-8 bg-transparent border-transparent'
+                    }`}>
+                    <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex justify-between items-center">
+                        <a href="./index.html" className="relative z-50 group">
+                            <span className="text-xl md:text-2xl font-black tracking-tighter text-[#111] dark:text-white transition-colors">
+                                PRAISE<span className="text-blue-600 dark:text-blue-500">.</span>
+                            </span>
+                        </a>
+
+                        <div className="hidden md:flex items-center gap-12">
+                            <a href="./index.html#works" className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors">Work</a>
+                            <a href="./index.html#stack" className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors">Stack</a>
+                            <span aria-current="page" className="text-xs font-bold uppercase tracking-[0.2em] text-black dark:text-white">About</span>
+
+                            <a href="mailto:Akindepraise5@gmail.com" className="text-xs font-black uppercase tracking-[0.2em] text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-500 transition-colors">Hire Me</a>
+
+                            <div className="w-px h-6 bg-gray-300 dark:bg-white/20"></div>
+                            <button
+                                onClick={toggleTheme}
+                                aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+                                className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-500 transition-colors"
+                            >
+                                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                            </button>
+                        </div>
+
+                        <div className="flex md:hidden items-center gap-4 relative z-[60]">
+                            <button
+                                onClick={toggleTheme}
+                                aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+                                className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-500 transition-colors"
+                            >
+                                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                            </button>
+                            <button
+                                className="w-10 h-10 flex items-center justify-center bg-gray-100 dark:bg-white/10 rounded-lg text-[#111] dark:text-white transition-colors"
+                                onClick={() => setIsOpen(!isOpen)}
+                                aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                                aria-expanded={isOpen}
+                                aria-controls="mobile-menu"
+                            >
+                                {isOpen ? <X size={20} /> : <Menu size={20} />}
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+            );
+        };
+
+        // =============================================================
+        // SECTION 01 — INTRO
+        // =============================================================
+        const SectionIntro = () => (
+            <section className="pt-40 md:pt-48 pb-20 md:pb-28 px-6">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-start">
+                        {/* Text — left */}
+                        <div className="w-full md:w-[45%] md:pt-8 order-2 md:order-1">
+                            <Reveal>
+                                <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-blue-600/15 dark:border-blue-500/15 bg-blue-50 dark:bg-blue-900/10">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-500"></span>
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-blue-600 dark:text-blue-400">
+                                        01 — About Praise
+                                    </span>
+                                </div>
+                            </Reveal>
+
+                            <Reveal delay={100}>
+                                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-[#111] dark:text-white tracking-tighter leading-[0.9] mb-6">
+                                    Hi, I'm<br />Praise.
+                                </h1>
+                            </Reveal>
+
+                            <Reveal delay={200}>
+                                <p className="text-lg md:text-xl font-semibold text-gray-500 dark:text-gray-400 mb-8 tracking-tight">
+                                    Designer. Builder. Teacher. Perpetually curious.
+                                </p>
+                            </Reveal>
+
+                            <Reveal delay={300}>
+                                <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-lg">
+                                    I spend a lot of my time making things — designing interfaces, building websites, teaching people what I've learned, exploring new technology, and occasionally getting way too invested in an idea that started as "let me just try this."
+                                </p>
+                            </Reveal>
+                        </div>
+
+                        {/* Portrait — right (naturally tall) */}
+                        <div className="w-full md:w-[55%] order-1 md:order-2">
+                            <Reveal delay={150}>
+                                <div className="relative">
+                                    <img
+                                        src="./assets/My images/about-portrait-formal.png"
+                                        alt="Praise Akinde — portrait"
+                                        className="about-img w-full rounded-lg object-cover"
+                                        style={{ maxHeight: '75vh' }}
+                                        width="1325"
+                                        height="1752"
+                                        loading="eager"
+                                        fetchpriority="high"
+                                        decoding="async"
+                                    />
+                                    {/* Small blue accent label */}
+                                    <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 px-3 py-1.5 bg-black/60 backdrop-blur-sm rounded-full">
+                                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400">The person behind the work</span>
+                                    </div>
+                                </div>
+                            </Reveal>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        // =============================================================
+        // SECTION 02 — MAKING THINGS
+        // =============================================================
+        const SectionMaking = () => (
+            <section className="py-16 md:py-24 px-6">
+                <div className="max-w-[1400px] mx-auto">
+                    <Reveal>
+                        <div className="mb-8 md:mb-10">
+                            <SectionMark number="02" label="Making things" />
+                            <h2 className="text-3xl md:text-5xl font-black text-[#111] dark:text-white tracking-tight leading-[1.1] mb-4">
+                                I like making things.
+                            </h2>
+                            <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl">
+                                I've spent the last few years moving between design, code, products, and whatever interesting problem catches my attention.
+                            </p>
+                        </div>
+                    </Reveal>
+
+                    <Reveal delay={150}>
+                        <div className="relative overflow-hidden rounded-lg">
+                            <img
+                                src="./assets/My images/about-building.jpg"
+                                alt="Praise working and building"
+                                className="about-img w-full object-cover"
+                                style={{ maxHeight: '520px' }}
+                                width="1280"
+                                height="960"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </div>
+                    </Reveal>
+                </div>
+            </section>
+        );
+
+        // =============================================================
+        // SECTION 03 — TEACHING
+        // =============================================================
+        const SectionTeaching = () => (
+            <section className="py-16 md:py-24 px-6">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-center">
+                        {/* Image — left on desktop */}
+                        <div className="w-full md:w-[58%]">
+                            <Reveal>
+                                <div className="relative overflow-hidden rounded-lg">
+                                    <img
+                                        src="./assets/My images/about-teaching.jpg"
+                                        alt="Praise teaching a class"
+                                        className="about-img w-full object-cover"
+                                        style={{ maxHeight: '480px' }}
+                                        width="4000"
+                                        height="3000"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+                            </Reveal>
+                        </div>
+
+                        {/* Text — right */}
+                        <div className="w-full md:w-[42%]">
+                            <Reveal delay={100}>
+                                <SectionMark number="03" label="Teaching" />
+                                <h2 className="text-3xl md:text-4xl font-black text-[#111] dark:text-white tracking-tight leading-[1.1] mb-4">
+                                    I don't just keep what I learn to myself.
+                                </h2>
+                                <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    I've taught and mentored designers, which has probably taught me just as much about people as design itself.
+                                </p>
+                            </Reveal>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        // =============================================================
+        // SECTION 04 — LIFE OUTSIDE WORK
+        // =============================================================
+        const SectionLife = () => (
+            <section className="py-16 md:py-24 px-6">
+                <div className="max-w-[1400px] mx-auto">
+                    <Reveal>
+                        <div className="mb-8 md:mb-10">
+                            <SectionMark number="04" label="Outside work" />
+                            <h2 className="text-3xl md:text-5xl font-black text-[#111] dark:text-white tracking-tight leading-[1.1] mb-4">
+                                I'm a people person.
+                            </h2>
+                            <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-md">
+                                Some of my best memories have nothing to do with work.
+                            </p>
+                        </div>
+                    </Reveal>
+
+                    <Reveal delay={150}>
+                        <div className="editorial-grid-04">
+                            {/* Larger — friends outdoor (4:3 landscape) */}
+                            <div className="relative overflow-hidden rounded-lg">
+                                <img
+                                    src="./assets/My images/about-friends-outdoor.jpg"
+                                    alt="Praise with friends outdoors"
+                                    className="about-img w-full object-cover object-bottom"
+                                    style={{ aspectRatio: '4/3' }}
+                                    width="3648"
+                                    height="2736"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </div>
+
+                            {/* Smaller — graduation friends (16:9 wider), offset lower */}
+                            <div className="relative overflow-hidden rounded-lg md:mt-12">
+                                <img
+                                    src="./assets/My images/about-graduation-friends.jpg"
+                                    alt="Praise at graduation with friends"
+                                    className="about-img w-full object-cover object-center"
+                                    style={{ aspectRatio: '16/10' }}
+                                    width="3968"
+                                    height="2232"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                                <div className="absolute bottom-3 right-3 px-2.5 py-1 bg-black/50 backdrop-blur-sm rounded-full">
+                                    <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/70">Good times</span>
+                                </div>
+                            </div>
+                        </div>
+                    </Reveal>
+                </div>
+            </section>
+        );
+
+        // =============================================================
+        // SECTION 05 — FIGURING THINGS OUT
+        // =============================================================
+        const SectionFiguring = () => (
+            <section className="py-16 md:py-24 px-6">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="flex flex-col-reverse md:flex-row gap-10 md:gap-16 items-start">
+                        {/* Images — left (mixed: portrait + landscape) */}
+                        <div className="w-full md:w-[58%]">
+                            <Reveal delay={100}>
+                                <div className="editorial-grid-05">
+                                    {/* Speaking — portrait 4:5 */}
+                                    <div className="relative overflow-hidden rounded-lg">
+                                        <img
+                                            src="./assets/My images/about-speaking.jpg"
+                                            alt="Praise speaking"
+                                            className="about-img w-full object-cover"
+                                            style={{ aspectRatio: '4/5' }}
+                                            width="1024"
+                                            height="1280"
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
+                                    </div>
+
+                                    {/* TES — landscape 4:3 */}
+                                    <div className="relative overflow-hidden rounded-lg md:mt-16">
+                                        <img
+                                            src="./assets/My images/about-friends-tes.jpg"
+                                            alt="Praise with colleagues"
+                                            className="about-img w-full object-cover"
+                                            style={{ aspectRatio: '4/3', objectPosition: 'center 65%' }}
+                                            width="3648"
+                                            height="2736"
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
+                                        <div className="absolute bottom-3 left-3 px-2.5 py-1 bg-black/50 backdrop-blur-sm rounded-full">
+                                            <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/70">People & places</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Reveal>
+                        </div>
+
+                        {/* Text — right */}
+                        <div className="w-full md:w-[42%] md:pt-8">
+                            <Reveal>
+                                <SectionMark number="05" label="Figuring it out" />
+                                <h2 className="text-3xl md:text-4xl font-black text-[#111] dark:text-white tracking-tight leading-[1.1] mb-4">
+                                    I like being thrown into the deep end.
+                                </h2>
+                                <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    If I don't know how to do something, I'll figure it out.
+                                </p>
+                            </Reveal>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        // =============================================================
+        // SECTION 06 — RIGHT NOW
+        // =============================================================
+        const SectionNow = () => (
+            <section className="py-20 md:py-32 px-6">
+                <div className="max-w-[800px] mx-auto text-center">
+                    <Reveal>
+                        <SectionMark number="06" label="Right now" align="center" />
+                        <h2 className="text-4xl md:text-6xl font-black text-[#111] dark:text-white tracking-tighter leading-[0.95] mb-10">
+                            Right now?
+                        </h2>
+                    </Reveal>
+
+                    <Reveal delay={150}>
+                        <div className="flex flex-col gap-2 mb-10">
+                            {['Designing.', 'Building.', 'Learning.', 'Trying things.'].map((line, i) => (
+                                <span
+                                    key={i}
+                                    className="text-xl md:text-2xl font-semibold text-gray-400 dark:text-gray-500 tracking-tight"
+                                >
+                                    {line}
+                                </span>
+                            ))}
+                        </div>
+                    </Reveal>
+
+                    <Reveal delay={300}>
+                        <p className="text-lg md:text-xl font-medium text-gray-600 dark:text-gray-400 italic">
+                            And figuring out what's next.
+                        </p>
+                    </Reveal>
+                </div>
+            </section>
+        );
+
+        // =============================================================
+        // SECTION 07 — CLOSING
+        // =============================================================
+        const SectionClosing = () => (
+            <section className="py-20 md:py-28 px-6 border-b border-gray-200 dark:border-white/5">
+                <div className="max-w-[800px] mx-auto text-center">
+                    <Reveal>
+                        <div className="blue-line mx-auto mb-8"></div>
+                        <h2 className="text-4xl md:text-6xl font-black text-[#111] dark:text-white tracking-tighter leading-[0.95] mb-5">
+                            Still becoming.
+                        </h2>
+                        <p className="text-base md:text-lg text-gray-500 dark:text-gray-500 font-medium mb-12">
+                            That's probably the simplest way to describe me.
+                        </p>
+                    </Reveal>
+
+                    {/* The page used to dead-end here. Give the reader somewhere
+                        to go once they're sold on the person. */}
+                    <Reveal delay={150}>
+                        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+                            <a
+                                href="./index.html#works"
+                                className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-[#111] dark:bg-white text-white dark:text-[#111] text-xs font-bold uppercase tracking-[0.2em] hover:bg-blue-600 dark:hover:bg-blue-500 dark:hover:text-white transition-colors"
+                            >
+                                See the work <ArrowRight size={16} />
+                            </a>
+                            <a
+                                href="mailto:Akindepraise5@gmail.com"
+                                className="inline-flex items-center gap-2 px-7 py-4 rounded-full border border-gray-300 dark:border-white/20 text-[#111] dark:text-white text-xs font-bold uppercase tracking-[0.2em] hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-500 dark:hover:text-blue-500 transition-colors"
+                            >
+                                Start a conversation
+                            </a>
+                        </div>
+                    </Reveal>
+                </div>
+            </section>
+        );
+
+        // =============================================================
+        // FOOTER (matching index.html)
+        // =============================================================
+        const Footer = () => (
+            <footer className="bg-[#111] text-white pt-32 pb-12 px-6">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="grid md:grid-cols-2 gap-16 mb-24">
+                        <div>
+                            <h2 className="text-[15vw] md:text-[8rem] font-black leading-[0.8] tracking-tighter mb-8 text-white">
+                                LET'S <br /><span className="text-blue-500">TALK.</span>
+                            </h2>
+                        </div>
+                        <div className="flex flex-col justify-end items-start md:items-end">
+                            <a
+                                href="mailto:Akindepraise5@gmail.com"
+                                className="text-2xl md:text-4xl font-bold border-b border-gray-700 hover:border-blue-500 hover:text-blue-500 transition-colors pb-2 mb-12"
+                            >
+                                {PORTFOLIO_DATA.email}
+                            </a>
+                            <div className="flex gap-6">
+                                {PORTFOLIO_DATA.socials.map((social, i) => (
+                                    <a
+                                        key={i}
+                                        href={social.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={`${social.name} (opens in a new tab)`}
+                                        className="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center hover:bg-blue-500 hover:text-black hover:border-blue-500 transition-all"
+                                    >
+                                        {social.icon}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-900 text-gray-500 text-xs font-bold uppercase tracking-widest">
+                        <p>&copy; {new Date().getFullYear()} PRAISE AKINDE. All Rights Reserved.</p>
+                        <p>Designed & Built with Precision</p>
+                    </div>
+                </div>
+            </footer>
+        );
+
+        // =============================================================
+        // APP
+        // =============================================================
+        const App = () => {
+            // Seeded from the class the pre-paint script already applied, so the
+            // React state and the DOM never disagree on first render.
+            const [isDark, setIsDark] = useState(() =>
+                document.documentElement.classList.contains('dark')
+            );
+            const [isOpen, setIsOpen] = useState(false);
+
+            useEffect(() => {
+                document.documentElement.classList.toggle('dark', isDark);
+                try {
+                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                } catch (e) {
+                    /* private mode / storage disabled — theme just won't persist */
+                }
+            }, [isDark]);
+
+            // Lock background scroll and allow Escape to dismiss the mobile menu.
+            useEffect(() => {
+                document.body.classList.toggle('menu-open', isOpen);
+                if (!isOpen) return;
+                const onKeyDown = (e) => { if (e.key === 'Escape') setIsOpen(false); };
+                window.addEventListener('keydown', onKeyDown);
+                return () => window.removeEventListener('keydown', onKeyDown);
+            }, [isOpen]);
+
+            return (
+                <>
+                    <div className="transition-opacity duration-1000 opacity-100">
+                        <a href="#main" className="skip-link">Skip to content</a>
+                        <div className="bg-noise"></div>
+                        <CustomCursor />
+                        <Navbar isDark={isDark} toggleTheme={() => setIsDark(!isDark)} isOpen={isOpen} setIsOpen={setIsOpen} />
+                        <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+                        <main id="main">
+                            <SectionIntro />
+                            <SectionMaking />
+                            <SectionTeaching />
+                            <SectionLife />
+                            <SectionFiguring />
+                            <SectionNow />
+                            <SectionClosing />
+                        </main>
+                        <Footer />
+                    </div>
+                </>
+            );
+        };
+
+        class ErrorBoundary extends React.Component {
+            constructor(props) { super(props); this.state = { error: null }; }
+            static getDerivedStateFromError(error) { return { error }; }
+            componentDidCatch(error, info) { console.error(error, info); }
+            render() {
+                if (this.state.error) {
+                    return (
+                        <div style={{ padding: '48px', maxWidth: '900px', margin: '0 auto', fontFamily: 'ui-monospace, Menlo, Consolas, monospace' }}>
+                            <h1 style={{ fontSize: '20px', marginBottom: '16px' }}>Something went wrong rendering this page.</h1>
+                            <pre style={{ whiteSpace: 'pre-wrap', color: '#b00020' }}>{String((this.state.error && this.state.error.stack) || this.state.error)}</pre>
+                        </div>
+                    );
+                }
+                return this.props.children;
+            }
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<ErrorBoundary><App /></ErrorBoundary>);
+    </script>
+</body>
+
+</html>

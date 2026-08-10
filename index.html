@@ -57,7 +57,22 @@
         })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
+    <!-- Set the theme before first paint so the page never flashes the wrong
+         colour scheme. Mirrors the persistence logic in the React app below. -->
+    <script>
+        (function () {
+            try {
+                var stored = localStorage.getItem('theme');
+                var dark = stored ? stored === 'dark'
+                    : !window.matchMedia('(prefers-color-scheme: light)').matches;
+                document.documentElement.classList.toggle('dark', dark);
+            } catch (e) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+
     <!-- Primary SEO Meta Tags -->
     <title>Praise Akinde | Frontend Developer & UI/UX Designer</title>
     <meta name="description" content="I build web products users understand, enjoy, and find highly usable. Focused on usability, performance, and human-centered design.">
@@ -425,6 +440,16 @@
         const PROJECTS = [
             {
                 id: 1,
+                title: "Ten10",
+                category: "Technology Consultancy",
+                image: "",
+                video: "./video/Ten(10).mp4",
+                tags: ["HTML5", "CSS3", "Vanilla JS"],
+                description: "A modern digital experience for Ten10, redesigned to strengthen its visual identity, simplify the user journey, and create a more engaging conversion-focused website.",
+                link: "https://test-amber-alpha-16.vercel.app/"
+            },
+            {
+                id: 2,
                 title: "Ewave",
                 category: "Fintech & Web3",
                 image: "",
@@ -434,7 +459,7 @@
                 link: "https://useewave.com/"
             },
             {
-                id: 2,
+                id: 3,
                 title: "MonoCRM",
                 category: "Financial Infrastructure",
                 image: "./assets/monocrm_preview.png",
@@ -444,7 +469,17 @@
                 link: "https://firsttest-xi.vercel.app"
             },
             {
-                id: 3,
+                id: 4,
+                title: "Nathan Leadgate",
+                category: "Advisory & Consulting",
+                image: "",
+                video: "./video/NathanLeadgate.mp4",
+                tags: ["HTML5", "CSS3", "Vanilla JS"],
+                description: "A premium website experience for an evidence-led advisory firm, redesigned to clarify its offering, showcase its diagnostic methodology, and create a stronger path toward client engagement.",
+                link: "https://nathan-redesign.vercel.app/"
+            },
+            {
+                id: 5,
                 title: "VO Photography",
                 category: "Photography Portfolio",
                 image: "./assets/vo_photography_preview.png",
@@ -454,7 +489,7 @@
                 link: "https://vophotography.vercel.app"
             },
             {
-                id: 4,
+                id: 6,
                 title: "StoryFlow Agency",
                 category: "Creative Agency",
                 image: "./assets/storyflow_preview.png",
@@ -464,7 +499,7 @@
                 link: "https://storyflowagency.vercel.app"
             },
             {
-                id: 5,
+                id: 7,
                 title: "Whiskey Fix Band",
                 category: "Music & Entertainment",
                 image: "./assets/whiskey_fix_preview.png",
@@ -472,16 +507,6 @@
                 tags: ["Next.js", "Tailwind", "Framer Motion"],
                 description: "The official digital presence for Whiskey Fix Band. A responsive platform connecting fans with music, tour schedules, and exclusive content.",
                 link: "https://whiskeyfixband.vercel.app"
-            },
-            {
-                id: 6,
-                title: "PDF Compressor",
-                category: "Utility Tool",
-                image: "./assets/pdf_compressor_preview.png",
-                video: "./video/Pdf Compressor P3.mp4",
-                tags: ["Next.js", "TypeScript"],
-                description: "A premium, secure document optimization engine. Re-engineered to make PDFs lighter and faster with enterprise-grade encryption and privacy.",
-                link: "https://pdfcompressor-two.vercel.app"
             }
         ];
 
@@ -503,10 +528,10 @@
 
         const MobileMenu = ({ isOpen, setIsOpen, isDark, toggleTheme }) => (
             <div className={`fixed inset-0 bg-white dark:bg-black z-[50] flex flex-col items-center justify-center gap-8 transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'} md:hidden`}>
-                {[{ name: 'Work', id: 'works' }, { name: 'Stack', id: 'stack' }, { name: 'About', id: 'about' }].map((item) => (
+                {[{ name: 'Work', href: '#works' }, { name: 'Stack', href: '#stack' }, { name: 'About', href: './about.html' }].map((item) => (
                     <a
                         key={item.name}
-                        href={`#${item.id}`}
+                        href={item.href}
                         onClick={() => setIsOpen(false)}
                         className="text-4xl font-black uppercase tracking-tighter text-[#111] dark:text-white hover:text-blue-600 dark:hover:text-blue-500 transition-colors"
                     >
@@ -550,7 +575,7 @@
                             {/* Standard Links */}
                             <a href="#works" className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors">Work</a>
                             <a href="#stack" className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors">Stack</a>
-                            <a href="#about" className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors">About</a>
+                            <a href="./about.html" className="text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors">About</a>
 
                             {/* Hire Me - Active Text */}
                             <a href="mailto:Akindepraise5@gmail.com" className="text-xs font-black uppercase tracking-[0.2em] text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-500 transition-colors">Hire Me</a>
@@ -872,9 +897,12 @@
                             </h2>
 
                             {/* Secondary Text */}
-                            <p className="text-lg md:text-xl text-gray-700 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto">
+                            <p className="text-lg md:text-xl text-gray-700 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto mb-10">
                                 With a background in product design, I approach frontend development through the lens of real users — making sure products feel simple, intuitive, and useful.
                             </p>
+                            <a href="./about.html" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#111] dark:text-white border-b border-black dark:border-white pb-1 hover:text-blue-600 dark:hover:text-blue-500 hover:border-blue-600 dark:hover:border-blue-500 transition-colors">
+                                More about me <ArrowRight className="w-4 h-4" />
+                            </a>
                         </Reveal>
                     </div>
                 </section>
@@ -951,15 +979,20 @@
 
         const App = () => {
             const [loading, setLoading] = useState(true);
-            const [isDark, setIsDark] = useState(true);
+            // Seeded from the class the pre-paint script already applied.
+            const [isDark, setIsDark] = useState(() =>
+                document.documentElement.classList.contains('dark')
+            );
             const [isOpen, setIsOpen] = useState(false);
 
-            // Toggle Dark Mode Class on Body
+            // Toggle Dark Mode Class on Body, and remember the choice so it
+            // carries across to about.html and survives a reload.
             useEffect(() => {
-                if (isDark) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
+                document.documentElement.classList.toggle('dark', isDark);
+                try {
+                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                } catch (e) {
+                    /* private mode / storage disabled — theme just won't persist */
                 }
             }, [isDark]);
 
